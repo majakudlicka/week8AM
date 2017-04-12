@@ -12,6 +12,13 @@ module.exports = {
   config: {auth: false},
   handler: (req, reply) => {
     const query = req.url.query.code;
+
+    console.log("ONE1:", req.state);
+
+    if (req.state.token){
+      return reply.redirect('/home')
+    }
+
     const options = {
       url: `https://github.com/login/oauth/access_token?code=${query}&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`
     }
@@ -20,11 +27,9 @@ module.exports = {
       if (err) {
         console.log(err);
       } else {
-        const access_token = qs.parse(body).access_token;
-        console.log("access_token", access_token);
-
+        let access_token = qs.parse(body).access_token;
         const url = 'https://api.github.com/user';
-
+        console.log("access_token", access_token);
         const headers = {
         'User-Agent': 'oauth_github_jwt',
         Authorization: `token ${access_token}`
@@ -32,6 +37,8 @@ module.exports = {
 
         request.get({url:url, headers:headers}, (error, response, body) => {
           const parsedBody = JSON.parse(body);
+
+          // console.log(parsedBody);
 
           let options = {
             'expiresIn': Date.now() + 24 * 60 * 60 * 1000,
@@ -41,7 +48,8 @@ module.exports = {
           let payload = {
             'user': {
               'username': parsedBody.login,
-              'img_url': parsedBody.avatar_url,
+              'name': parsedBody.name,
+              'avatar_url': parsedBody.avatar_url,
               'user_id': parsedBody.id
             },
             'accessToken': access_token
