@@ -1,3 +1,6 @@
+const get = require('../handler_home.js');
+const hbs = require('handlebars');
+
 const secure = {
   method: 'GET',
   path: '/secure',
@@ -5,7 +8,18 @@ const secure = {
     auth: 'jwt'
   },
   handler: (req, reply) => {
-    reply('This is the secure page!');
+
+    get.getData((err, jokes) => {
+      if (err) {
+        return reply.redirect('Something went wrong sorry!');
+      }
+      // console.log("I AM HEreEEEE");
+      const options = { jokes }
+      reply.view('index', options)
+
+
+    });
+
   },
 }
 

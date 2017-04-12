@@ -55,18 +55,9 @@ module.exports = {
             }
 
             // console.log("dis cookie got set!")
-
-
-              get.getData((err, jokes) => {
-                if (err) {
-                  return reply.redirect('Something went wrong sorry!');
-                }
-                // console.log("I AM HEreEEEE");
-                const options = { jokes }
-                reply
-                  .view('index', options)
-                  .state('token', token, config);
-              });
+              reply
+                .view('jokes_button')
+                .state('token', token, config);
           });
 
 
