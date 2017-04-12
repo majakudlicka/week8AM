@@ -20,20 +20,10 @@ const routes = {
       url: '/login',
     },
     {
-      statusCode: 200,
-      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+      statusCode: 302,
+      headers: { 'Content-Type': undefined },
     },
   ],
-  // loginSubmit: [
-  //   {
-  //     method: 'POST',
-  //     url: '/login/submit',
-  //   },
-  //   {
-  //     statusCode: 200,
-  //     headers: { 'Content-Type': 'text/html; charset=utf-8' },
-  //   },
-  // ],
   post: [
     {
       method: 'GET',
@@ -44,16 +34,6 @@ const routes = {
       headers: { 'Content-Type': 'text/html; charset=utf-8' },
     },
   ],
-  // submitPost: [
-  //   {
-  //     method: 'POST',
-  //     url: '/post/submit',
-  //   },
-  //   {
-  //     statusCode: 200,
-  //     headers: { 'Content-Type': 'text/html; charset=utf-8' },
-  //   },
-  // ],
   css: [
     {
       method: 'GET',
