@@ -2,7 +2,7 @@ const get = require('./../handler_home');
 
 module.exports = {
   method: 'GET',
-  path: '/',
+  path: '/home',
   handler: (req, reply) => {
     get.getData((err, jokes) => {
       if (err) {

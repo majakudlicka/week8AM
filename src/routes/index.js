@@ -1,4 +1,5 @@
 module.exports = [
+  require('./landing.js'),
   require('./home.js'),
   require('./static.js'),
   require('./login.js'),

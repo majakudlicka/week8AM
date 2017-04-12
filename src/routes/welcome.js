@@ -2,6 +2,9 @@ const env2 = require('env2')('./config.env');
 const request = require('request');
 const qs = require('querystring');
 const jwt = require('jsonwebtoken');
+const get = require('../handler_home.js');
+const hbs = require('handlebars');
+
 
 module.exports = {
   method: 'GET',
@@ -53,9 +56,17 @@ module.exports = {
 
             // console.log("dis cookie got set!")
 
-            reply
-              .redirect('/secure')
-              .state('token', token, config);
+
+              get.getData((err, jokes) => {
+                if (err) {
+                  return reply.redirect('Something went wrong sorry!');
+                }
+                // console.log("I AM HEreEEEE");
+                const options = { jokes }
+                reply
+                  .view('index', options)
+                  .state('token', token, config);
+              });
           });
 
 
