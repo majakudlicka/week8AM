@@ -5,6 +5,8 @@ const hbs = require('handlebars');
 const cookieAuth = require('hapi-auth-cookie');
 const fs = require('fs');
 const path = require('path');
+const haj = require('hapi-auth-jwt2');
+const users = require('../database/users');
 
 
 const routes = require('./routes');
@@ -19,16 +21,24 @@ server.connection({
    }
 });
 
-server.register([inert, vision, cookieAuth], (err) => {
+server.register([inert, vision, cookieAuth, haj], (err) => {
   if (err) throw err;
 
-  var options = {
-    password: 'Iamatemporarypasswordofover32characterssothatwecangetcookiesworking',
-    cookie: 'cookie-name',
-    isSecure: false,
-    ttl: 2 * 60 * 60000
-  };
-  server.auth.strategy('base', 'cookie', 'optional', options);
+  const validate = (token, request, callback) => {
+    console.log("token", token); // decoded token, it automatically decodes it
+    if (!users[token.user.user_id]) {
+      return callback(null, false);
+    }
+    return callback(null, true);
+  }
+
+  const strategyOptions = {
+    key: process.env.JWT_SECRET,
+    validateFunc: validate,
+    verifyOptions: { algorithms: [ 'HS256' ] }
+  }
+
+  server.auth.strategy('jwt', 'jwt', strategyOptions);
 
   server.route(routes);
 });
