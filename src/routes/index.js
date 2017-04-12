@@ -5,5 +5,6 @@ module.exports = [
   require('./post.js'),
   require('./login_submit.js'),
   require('./post_submit.js'),
-  require('./logout.js')
+  require('./logout.js'),
+  require('./welcome.js')
 ];
