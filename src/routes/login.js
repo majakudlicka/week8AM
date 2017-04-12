@@ -1,3 +1,5 @@
+require('env2')('./config.env');
+
 const login = {
   method: 'GET',
   path: '/login',
