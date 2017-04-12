@@ -14,8 +14,9 @@ const routes = require('./routes');
 const server = new hapi.Server();
 
 server.connection({
+  address: process.env.IP || '0.0.0.0',
   port: process.env.PORT || 3000,
-  tls: {
+  tls: process.env.NODE_ENV !== 'production' && {
        key: fs.readFileSync(path.join(__dirname, '../keys/key.pem'), 'utf8'),
        cert: fs.readFileSync(path.join(__dirname, '../keys/cert.pem'), 'utf8')
    }
