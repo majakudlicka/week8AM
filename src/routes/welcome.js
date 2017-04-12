@@ -1,6 +1,7 @@
 const env2 = require('env2')('./config.env');
 const request = require('request');
-const qs = require('querystring')
+const qs = require('querystring');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   method: 'GET',
@@ -42,12 +43,28 @@ module.exports = {
             },
             'accessToken': access_token
           };
+          jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
+            if (err) return console.log(err);
+            // console.log(token);
+            let config = {
+              path: '/',
+              isSecure: process.env.NODE_ENV === 'PRODUCTION'
+            }
+
+            // console.log("dis cookie got set!")
+
+            reply
+              .redirect('/secure')
+              .state('token', token, config);
+          });
+
+
         })
 
 
       }
     })
-    return reply("Welcome page!")
+
   }
 
 }
