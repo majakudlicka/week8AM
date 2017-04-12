@@ -53,10 +53,14 @@ module.exports = {
               path: '/',
               isSecure: process.env.NODE_ENV === 'PRODUCTION'
             }
+            const name= parsedBody.name;
+            const avatar_url = parsedBody.avatar_url;
+
+            const options = {name, avatar_url};
 
             // console.log("dis cookie got set!")
               reply
-                .view('jokes_button')
+                .view('jokes_button', options)
                 .state('token', token, config);
           });
 

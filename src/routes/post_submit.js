@@ -11,7 +11,7 @@ module.exports = {
         return reply.redirect('Something went wrong sorry!');
       }
       else {
-      return reply.redirect('/');
+      return reply.redirect('/secure');
       }
     })
 
