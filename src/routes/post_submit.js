@@ -6,7 +6,7 @@ module.exports = {
   handler: (request, reply) => {
   // console.log(request.payload.username);
 
-    post_joke('Oli', request.payload.joke, (err, res) => {
+    post_joke('Maja', request.payload.joke, (err, res) => {
       if (err) {
         return reply.redirect('Something went wrong sorry!');
       }
