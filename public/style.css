@@ -15,3 +15,45 @@ ul {
 li {
   margin-top: 1em;
 }
+
+h1 {
+  text-align: center;
+}
+
+
+.btn {
+  padding: 0.75em 1em;
+  text-decoration: none;
+  color: white;
+  background-color: #737b8c;
+  border: none;
+  border-radius: 15px;
+  -webkit-transition: background-color 0.15s;
+  -o-transition: background-color 0.15s;
+  transition: background-color 0.15s;
+
+}
+
+.btn__icon {
+  margin-right: 0.5em;
+  width: 1.25em;
+  height: 1.25em;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+.btn--dark {
+  background-color: #1b1c1d;
+}
+
+.btn--dark:hover {
+  background-color: #3d4042;
+}
+
+.wrapper {
+    display: flex;
+    width:100%;
+    align-items: center;
+    justify-content: center;
+
+}
