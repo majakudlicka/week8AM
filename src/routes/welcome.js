@@ -13,8 +13,6 @@ module.exports = {
   handler: (req, reply) => {
     const query = req.url.query.code;
 
-    console.log("ONE1:", req.state);
-
     if (req.state.token){
       return reply.redirect('/home')
     }
@@ -29,7 +27,6 @@ module.exports = {
       } else {
         let access_token = qs.parse(body).access_token;
         const url = 'https://api.github.com/user';
-        console.log("access_token", access_token);
         const headers = {
         'User-Agent': 'oauth_github_jwt',
         Authorization: `token ${access_token}`
@@ -37,9 +34,6 @@ module.exports = {
 
         request.get({url:url, headers:headers}, (error, response, body) => {
           const parsedBody = JSON.parse(body);
-
-          // console.log(parsedBody);
-
           let options = {
             'expiresIn': Date.now() + 24 * 60 * 60 * 1000,
             'subject': 'github-data'
@@ -65,8 +59,6 @@ module.exports = {
             const avatar_url = parsedBody.avatar_url;
 
             const options = {name, avatar_url};
-
-            // console.log("dis cookie got set!")
               reply
                 .view('jokes_button', options)
                 .state('token', token, config);
@@ -74,8 +66,6 @@ module.exports = {
 
 
         })
-
-
       }
     })
 

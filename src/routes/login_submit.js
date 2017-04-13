@@ -11,19 +11,13 @@ module.exports = {
 
     getUsers.getUsers(username, password, (err, res) => {
 
-  if (err) {
-
-    reply.view('index', { message: err.message });
-  }
-  else if (res.length) {
-
-      request.cookieAuth.set({ username });
-      reply.redirect('/');
-
-  }
-});
-
-    //compare details to database
-
+      if (err) {
+        reply.view('index', { message: err.message });
+      }
+      else if (res.length) {
+        request.cookieAuth.set({ username });
+        reply.redirect('/');
+      }
+    });
   }
 }
