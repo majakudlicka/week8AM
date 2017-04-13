@@ -17,7 +17,6 @@ module.exports = {
 
     const options = { name, avatar_url }
     reply.view('jokes_button', options)
-    // reply('HELLLOOOO')
   }
 
 }
